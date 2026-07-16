@@ -1,0 +1,3 @@
+ERROR:Database connection failed
+INFO : System is active
+ERROR: Connection lost again
