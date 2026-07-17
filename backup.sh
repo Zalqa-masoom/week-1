@@ -1,8 +1,5 @@
 #!/bin/bash
-from="/home/ubuntu/Desktop/bash_scripting"
-to="/home/ubuntu/Desktop/my_backups"
+mkdir -p my_backups
 now=$(date +"%Y-%m-%d_%H-%M-%S")
-file_name="my_backup_$now.tar.gz"
-mkdir -p "$to"
-tar -czf "$to/$file_name" "$from"
+tar -czf "my_backups/backup_$now.tar.gz" .
 echo "done! backup successfully."
