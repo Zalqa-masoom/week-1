@@ -1,9 +1,17 @@
 #!/bin/bash
-#Check disk usage 
-usage=$(df / | grep / | awk 'NR==2 { print  $5 }'  | cut -d'%' -f1)
-#Check if usage is more than 80%
-if [ $usage -gt 80 ]; then
-echo "Warning: Disk is almost full!"
-else
-echo "Disk space is okay!"
+set -euo pipefail
+if [ "$#" -ne 2 ]; then
+echo "Usage: $0 [threshold] [partition_path"
+echo "Example: $0 80 /"
+exit 1
 fi
+THRESHOLD=$1
+PARTITION=$2
+CURRENT_USAGE=$(df -h "$PARTITION" | grep -v"File system" |awk '{print $5}' |sed 's/%//')
+USAGE=50
+if [ "$USAGE" -gt "$THRESHOLD" ]; then
+echo "WARNING: DISKusage on$PARTITION is at $CURRENT_USAGE%. Threshold is $THRESHOLD%."
+else
+echo "DISKusage on $PARTITION is fine ($CURRENT_USAGE%) ."
+fi
+
